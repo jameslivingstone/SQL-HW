@@ -1,0 +1,37 @@
+EVALUATE
+SUMMARIZECOLUMNS
+(
+ DimDate[CalendarYear],
+ TREATAS({2012, 2013}, DimDate[CalendarYear]),
+ "TotalSales", [InternetTotalSales]
+)
+ORDER BY [CalendarYear]
+
+EVALUATE
+SUMMARIZECOLUMNS
+(
+ DimDate[CalendarYear],
+ DimGeography[EnglishCountryRegionName],
+ DimProductCategory[EnglishProductCategoryName],
+ TREATAS({2012, 2013}, DimDate[CalendarYear]),
+ "TotalSales", [InternetTotalSales]
+)
+ORDER BY [CalendarYear], [EnglishCountryRegionName],
+[EnglishProductCategoryName]
+
+EVALUATE
+SUMMARIZECOLUMNS
+(
+ DimDate[CalendarYear],
+ DimGeography[EnglishCountryRegionName],
+ DimProductCategory[EnglishProductCategoryName],
+ TREATAS({2012, 2013}, DimDate[CalendarYear]),
+ "TotalSales", [InternetTotalSales],
+ "CombinedYearsTotalSales", CALCULATE([InternetTotalSales],
+ALLSELECTED(DimDate[CalendarYear]))
+)
+ORDER BY [CalendarYear], [EnglishCountryRegionName],
+[EnglishProductCategoryName]
+
+--It is the total sales from 2012 Germany accessories plus the total sales froom 2013 Germany accessories 
+

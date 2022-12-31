@@ -1,0 +1,14 @@
+SELECT { InternetTotalSales } ON COLUMNS,
+ {[DimDate].[Calendar].[CalendarYear].&[2012],
+ [DimDate].[Calendar].[CalendarYear].&[2013]} ON ROWS
+FROM [Adventure Works Internet Sales Model]
+
+SELECT {InternetTotalSales } ON COLUMNS, Non Empty ( {DimDate.Calendar.CalendarYear.&[2012] *
+ DimGeography.EnglishCountryRegionName.Members *
+ DimProduct.Category.Category.Members,
+ DimDate.Calendar.CalendarYear.&[2013] *
+ DimGeography.EnglishCountryRegionName.Members *
+ DimProduct.Category.Category.Members
+ }
+ ) ON ROWS
+FROM [Adventure Works Internet Sales Model]
